@@ -1,0 +1,25 @@
+0000000000000000000000000000000000000000 58c8de9028286787cb099a918406b6c819f66ff2 Pushkar Mahakal <pumahaka@redhat.com> 1602691437 +0530	commit (initial): #README
+58c8de9028286787cb099a918406b6c819f66ff2 c05340c60cb89bfedc3eb4cc594e82d9de315278 Pushkar Mahakal <pumahaka@redhat.com> 1602692954 +0530	commit: add sleep
+c05340c60cb89bfedc3eb4cc594e82d9de315278 e0694cbd7947f9c83ea7144146f6bf41c5cb81a0 Pushkar Mahakal <pumahaka@redhat.com> 1602693285 +0530	commit: comment out move folder
+e0694cbd7947f9c83ea7144146f6bf41c5cb81a0 2629bfc1dd968c1da5eaa64b76d8ea8f831f81aa Pushkar Mahakal <pumahaka@redhat.com> 1602694865 +0530	commit: modify jira-zip url
+2629bfc1dd968c1da5eaa64b76d8ea8f831f81aa 2580b05e1d66d22d4530ab4691cc3d79d0096eef Pushkar Mahakal <pumahaka@redhat.com> 1602695259 +0530	commit: debug build error
+2580b05e1d66d22d4530ab4691cc3d79d0096eef 4f41a80d0cb4d3f52257dc0ab64e5b86bc9f112e Pushkar Mahakal <pumahaka@redhat.com> 1602695475 +0530	commit: debug unzip files
+4f41a80d0cb4d3f52257dc0ab64e5b86bc9f112e a2aa81ce09b608a35a744805e9efc4ef7a5dc625 Pushkar Mahakal <pumahaka@redhat.com> 1602695667 +0530	commit: debug unzip error
+a2aa81ce09b608a35a744805e9efc4ef7a5dc625 aa139ff20339c0834cf66a910c791d9745300bed Pushkar Mahakal <pumahaka@redhat.com> 1602695959 +0530	commit: unzip errors fix
+aa139ff20339c0834cf66a910c791d9745300bed dbb13dde0efb580e832673845023cb87a66cbaea Pushkar Mahakal <pumahaka@redhat.com> 1602696141 +0530	commit: debug unzip error
+dbb13dde0efb580e832673845023cb87a66cbaea f53b822b61f3bd2fa6b23cb75b1cc3710552f5ec Pushkar Mahakal <pumahaka@redhat.com> 1602696531 +0530	commit: debug unzip
+f53b822b61f3bd2fa6b23cb75b1cc3710552f5ec edb6cbebddc62be9378cfa1c8f1818b8da97f3ac Pushkar Mahakal <pumahaka@redhat.com> 1602696889 +0530	commit: install unzip package
+edb6cbebddc62be9378cfa1c8f1818b8da97f3ac 35404a8f88e8d218cba703396b74288ca2cc868a Pushkar Mahakal <pumahaka@redhat.com> 1602696975 +0530	commit: unzip files
+35404a8f88e8d218cba703396b74288ca2cc868a b9894180c8d591c46f8e0a82c685efd540f2ee79 Pushkar Mahakal <pumahaka@redhat.com> 1602697386 +0530	commit: mkdir error fix
+b9894180c8d591c46f8e0a82c685efd540f2ee79 c604c6c33baa144abede7903502fbf2cf32b4673 Pushkar Mahakal <pumahaka@redhat.com> 1603090306 +0530	commit: change permissions for bin folder
+c604c6c33baa144abede7903502fbf2cf32b4673 2100bb19b64c8aba84f92c4eb989b3cdeaa4277c Pushkar Mahakal <pumahaka@redhat.com> 1603092205 +0530	commit: modify catalina pid perms
+2100bb19b64c8aba84f92c4eb989b3cdeaa4277c 76af5cc15106fddd89eb35bc23352649fe65fb5f Pushkar Mahakal <pumahaka@redhat.com> 1603092533 +0530	commit: change work permisions
+76af5cc15106fddd89eb35bc23352649fe65fb5f 243692d65df99eb0f9e51b6ad52b5d50dbc67cd7 Pushkar Mahakal <pumahaka@redhat.com> 1603178287 +0530	commit: install ping
+243692d65df99eb0f9e51b6ad52b5d50dbc67cd7 a4f97db78ebf6d3f3155dbaa27ec60f32ee36102 Pushkar Mahakal <pumahaka@redhat.com> 1603178435 +0530	commit: install iputils
+a4f97db78ebf6d3f3155dbaa27ec60f32ee36102 f1f2c734b4fe480912b637e91f313c18b13304db Pushkar Mahakal <pumahaka@redhat.com> 1603178853 +0530	commit: install procps
+f1f2c734b4fe480912b637e91f313c18b13304db ce5b922ac0ddd1f92278bc394546b239de2553c4 Pushkar Mahakal <pumahaka@redhat.com> 1603179534 +0530	commit: commenting out clustering code
+ce5b922ac0ddd1f92278bc394546b239de2553c4 c26454f3ec488a2dccfb4c02b6bfc89e540b9e2e Pushkar Mahakal <pumahaka@redhat.com> 1603179902 +0530	commit: fix typo
+c26454f3ec488a2dccfb4c02b6bfc89e540b9e2e e94a85c5449485959b7dff0a52c744b7952470d3 Pushkar Mahakal <pumahaka@redhat.com> 1603180070 +0530	commit: fix JIRA_CLUSTER_HOME env error
+e94a85c5449485959b7dff0a52c744b7952470d3 eb4519d7504710699c1e7f806c1c9fa7ed25307b Pushkar Mahakal <pumahaka@redhat.com> 1603180411 +0530	commit: fix JIRA_CLUSTER_HOME errors
+eb4519d7504710699c1e7f806c1c9fa7ed25307b f4e02b01060e0254bbd5e4de1e3122877956ab6e Pushkar Mahakal <pumahaka@redhat.com> 1603200454 +0530	commit: fix JIRA_CLUSTER_HOME env var
+f4e02b01060e0254bbd5e4de1e3122877956ab6e c002c54ef9736a2c923e1bd86ac765b2d27250bc Pushkar Mahakal <pumahaka@redhat.com> 1603200906 +0530	commit: add JIRA_CLUSTER_HOME env

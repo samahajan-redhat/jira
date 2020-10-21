@@ -1,0 +1,95 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: null
+  generation: 30
+  labels:
+    app: jira-software
+  name: jira-software
+spec:
+  replicas: 1
+  selector:
+    app: jira-software
+    deploymentconfig: jira-software
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: jira-software
+        deploymentconfig: jira-software
+    spec:
+      containers:
+      - env:
+        - name: JIRA_SHARED_HOME
+          value: /var/atlassian/application-data/jira
+        - name: ATL_JDBC_URL
+          value: jiradb-dev.cluster-caip1s4xdmiu.us-east-2.rds.amazonaws.com
+        - name: ATL_JDBC_USER
+          value: jira
+        - name: ATL_JDBC_PASSWORD
+          value: jira
+        - name: ATL_DB_DRIVER
+          value: org.postgresql.Driver
+        - name: ATL_DB_TYPE
+          value: postgres72
+        - name: CLUSTERED
+          value: "true"
+        image: registry-proxy.engineering.redhat.com/rh-osbs/jira-software@sha256:8cca784529fe87d2c2d88b5a51e608f1bc8ab1d3888bfc5177f25581035cabb2
+        imagePullPolicy: Always
+        name: jira-software
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 5432
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/atlassian/application-data/jira
+          name: jira-software-1
+        - mountPath: /var/atlassian/application-data
+          name: shared
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsUser: 1001
+      serviceAccount: nonroot-scc
+      serviceAccountName: nonroot-scc
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: jira-software-1
+      - name: shared
+        persistentVolumeClaim:
+          claimName: rh1-dev-single
+  test: false
+  triggers:
+  - imageChangeParams:
+      containerNames:
+      - jira-software
+      from:
+        kind: ImageStreamTag
+        name: jira-software:latest
+        namespace: rh1--prototype
+      lastTriggeredImage: registry-proxy.engineering.redhat.com/rh-osbs/jira-software@sha256:8cca784529fe87d2c2d88b5a51e608f1bc8ab1d3888bfc5177f25581035cabb2
+    type: ImageChange
+  - type: ConfigChange
+status:
+  availableReplicas: 0
+  latestVersion: 0
+  observedGeneration: 0
+  replicas: 0
+  unavailableReplicas: 0
+  updatedReplicas: 0
