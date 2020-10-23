@@ -15,11 +15,11 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal
 # First we set up environment details. Remember we're building off of the OpenJDK 11
 # image, so we're inheriting additional ENV from that.
 # Here are the Jira-specific ones:
+RUN POD_NAME=${cat /etc/hostname}
 ENV RUN_USER=jira \
     RUN_GROUP=jira \
     RUN_UID=1001 \
     RUN_GID=1001 \
-    POD_NAME=${cat /etc/hostname}
 #    JIRA_HOME=/var/atlassian/application-data/jira/ \
     JIRA_HOME=/var/atlassian/application-data/jira/$POD_NAME \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
