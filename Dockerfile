@@ -20,7 +20,7 @@ ENV RUN_USER=jira \
     RUN_UID=1001 \
     RUN_GID=1001 \
 #    JIRA_HOME=/var/atlassian/application-data/jira/ \
-    JIRA_HOME=/var/atlassian/application-data/jira/${`cat /etc/hostname`} \
+    JIRA_HOME=/var/atlassian/application-data/jira/$hostid \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
@@ -58,6 +58,7 @@ RUN microdnf clean all && [ ! -d /var/cache/yum ] || rm -rf /var/cache/yum
 # Since we do not want to run as root, we make a lot of things world-writable or owned
 # by the Jira user instead. Let's create our users and the install directory:
 RUN groupadd --gid ${RUN_GID} ${RUN_GROUP}
+RUN hostid=$(cat /etc/hostname)
 RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /bin/bash ${RUN_USER}
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
