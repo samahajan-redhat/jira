@@ -25,7 +25,7 @@ ENV RUN_USER=jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
     JIRA_HOME=/var/atlassian/application-data/jira
-    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
+#    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
     JAVA_VENDOR="openjdk" \
@@ -63,7 +63,7 @@ RUN hostid=$(cat /etc/hostname)
 RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /bin/bash ${RUN_USER}
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
-RUN mkdir -p ${JIRA_CLUSTER_HOME}
+#RUN mkdir -p ${JIRA_CLUSTER_HOME}
 # this is not a direct download from atlassian.com, it's from lookaside
 # it had to be recompressed with the leading directory in the structure removed
 #ADD atlassian-jira-software-8.13.0.tar.gz ${JIRA_INSTALL_DIR}
@@ -98,7 +98,7 @@ RUN sed -i -e 's/-XX:ReservedCodeCacheSize=\([0-9]\+[kmg]\)/-XX:ReservedCodeCach
 RUN touch /etc/container_id
 RUN chown ${RUN_USER}:${RUN_GROUP}               /etc/container_id
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_HOME}
-RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_CLUSTER_HOME}
+#RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_CLUSTER_HOME}
 RUN chgrp -R 0 /etc/container_id
 RUN chmod -R g=u /etc/container_id
 RUN chmod -R 460 /etc/container_id
@@ -106,8 +106,8 @@ RUN chgrp -R 0 ${JIRA_INSTALL_DIR}
 RUN chmod -R g=u ${JIRA_INSTALL_DIR}
 RUN chgrp -R 0 ${JIRA_HOME}
 RUN chmod -R g=u ${JIRA_HOME}
-RUN chgrp -R 0 ${JIRA_CLUSTER_HOME}
-RUN chmod -R g=u ${JIRA_CLUSTER_HOME}
+#RUN chgrp -R 0 ${JIRA_CLUSTER_HOME}
+#RUN chmod -R g=u ${JIRA_CLUSTER_HOME}
 
 # Tweak the entrypoint script
 # not sure we need this after Docker 1.13, this happens automatically with --init
