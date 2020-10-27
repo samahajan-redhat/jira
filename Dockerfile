@@ -21,11 +21,10 @@ ENV RUN_USER=jira \
     RUN_UID=1001 \
     RUN_GID=1001 \
 #    JIRA_HOME=/var/atlassian/application-data/jira/ \
-    JIRA_HOME=/var/atlassian/application-data/jira/$POD_NAME \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
-    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
+    JIRA_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
     JAVA_VENDOR="openjdk" \
@@ -81,6 +80,8 @@ RUN mkdir -p ${JIRA_INSTALL_DIR}/logs \
 #ADD atlassian-jira-software-8.13.0-standalone/conf/ ${JIRA_INSTALL_DIR}/conf
 #ADD atlassian-jira-software-8.13.0-standalone/bin/ ${JIRA_INSTALL_DIR}/bin
 ADD setenv.sh ${JIRA_INSTALL_DIR}/bin
+ADD mkdir-home.sh /var/atlassian/application-data/jira
+RUN chmod 777 /var/atlassian/application-data/jira/mkdir-home.sh
 #ADD https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-core-8.12.0.tar.gz  ${JIRA_INSTALL_DIR}
 RUN chmod -R "u=rwX,g=rX,o=rX"                   ${JIRA_INSTALL_DIR}/
 RUN chown -R root.                               ${JIRA_INSTALL_DIR}/
