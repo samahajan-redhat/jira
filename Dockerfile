@@ -24,7 +24,8 @@ ENV RUN_USER=jira \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
-    JIRA_HOME=/var/atlassian/application-data/cluster
+    JIRA_HOME=/var/atlassian/application-data/jira
+    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
     JAVA_VENDOR="openjdk" \
