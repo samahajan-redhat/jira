@@ -20,12 +20,11 @@ ENV RUN_USER=jira \
     RUN_GROUP=jira \
     RUN_UID=1001 \
     RUN_GID=1001 \
-#    JIRA_HOME=/var/atlassian/application-data/jira/ \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
     JIRA_HOME=/var/atlassian/application-data/jira/$MY_POD_NAME
-#    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
+    JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
     JAVA_VENDOR="openjdk" \
@@ -128,9 +127,9 @@ ADD shared-components-support.tar.gz                /opt/atlassian/support
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/support
 ADD config/*                     	            /opt/atlassian/etc/
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/jira/conf
-ADD cluster.properties				    $JIRA_HOME/cluster.properties
-RUN chmod 770					    $JIRA_HOME/cluster.properties
-RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
+#ADD cluster.properties				    $JIRA_HOME/cluster.properties
+#RUN chmod 770					    $JIRA_HOME/cluster.properties
+#RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
 USER ${RUN_UID}:${RUN_GID}
 
 # Set up metadata about the container with labels
