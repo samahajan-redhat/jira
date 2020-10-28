@@ -63,6 +63,8 @@ RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /b
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
 RUN mkdir -p /var/atlassian/application-data/jira-home
+ADD mkdir-home.sh /var/atlassian/application-data/jira-home
+RUN chmod 777 /var/atlassian/application-data/jira-home/mkdir-home.sh
 #RUN mkdir -p ${JIRA_CLUSTER_HOME}
 # this is not a direct download from atlassian.com, it's from lookaside
 # it had to be recompressed with the leading directory in the structure removed
@@ -81,8 +83,6 @@ RUN mkdir -p ${JIRA_INSTALL_DIR}/logs \
 #ADD atlassian-jira-software-8.13.0-standalone/conf/ ${JIRA_INSTALL_DIR}/conf
 #ADD atlassian-jira-software-8.13.0-standalone/bin/ ${JIRA_INSTALL_DIR}/bin
 ADD setenv.sh ${JIRA_INSTALL_DIR}/bin
-ADD mkdir-home.sh /var/atlassian/application-data/jira-home/
-RUN chmod 777 /var/atlassian/application-data/jira-home/mkdir-home.sh
 #ADD https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-core-8.12.0.tar.gz  ${JIRA_INSTALL_DIR}
 RUN chmod -R "u=rwX,g=rX,o=rX"                   ${JIRA_INSTALL_DIR}/
 RUN chown -R root.                               ${JIRA_INSTALL_DIR}/
