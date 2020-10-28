@@ -64,7 +64,7 @@ RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
 RUN mkdir -p /var/atlassian/application-data/jira
 ADD mkdir-home.sh /var/atlassian/application-data/jira
-RUN chmod 777 /var/atlassian/application-data/jira/mkdir-home.sh
+RUN chmod 770 /var/atlassian/application-data/jira/mkdir-home.sh
 #RUN mkdir -p ${JIRA_CLUSTER_HOME}
 # this is not a direct download from atlassian.com, it's from lookaside
 # it had to be recompressed with the leading directory in the structure removed
