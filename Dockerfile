@@ -23,7 +23,7 @@ ENV RUN_USER=jira \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
-    JIRA_HOME=/var/atlassian/application-data/jira-home/$MY_POD_NAME \
+    JIRA_HOME=/var/atlassian/application-data/jira/$MY_POD_NAME \
     JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
@@ -62,9 +62,9 @@ RUN hostid=$(cat /etc/hostname)
 RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /bin/bash ${RUN_USER}
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
-RUN mkdir -p /var/atlassian/application-data/jira-home
-ADD mkdir-home.sh /var/atlassian/application-data/jira-home
-RUN chmod 777 /var/atlassian/application-data/jira-home/mkdir-home.sh
+RUN mkdir -p /var/atlassian/application-data/jira
+ADD mkdir-home.sh /var/atlassian/application-data/jira
+RUN chmod 777 /var/atlassian/application-data/jira/mkdir-home.sh
 #RUN mkdir -p ${JIRA_CLUSTER_HOME}
 # this is not a direct download from atlassian.com, it's from lookaside
 # it had to be recompressed with the leading directory in the structure removed
@@ -91,7 +91,7 @@ RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_INSTALL_DIR}/temp
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_INSTALL_DIR}/work
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_INSTALL_DIR}/conf
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_INSTALL_DIR}/bin
-RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/jira-home
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/jira
 RUN chmod -R 777 /opt/atlassian/jira/work/
 RUN sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_ARGS:=""}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh
 RUN sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh
