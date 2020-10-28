@@ -97,6 +97,7 @@ RUN sed -i -e 's/^JVM_SUPPORT_RECOMMENDED_ARGS=""$/: \${JVM_SUPPORT_RECOMMENDED_
 RUN sed -i -e 's/^JVM_\(.*\)_MEMORY="\(.*\)"$/: \${JVM_\1_MEMORY:=\2}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh
 RUN sed -i -e 's/-XX:ReservedCodeCacheSize=\([0-9]\+[kmg]\)/-XX:ReservedCodeCacheSize=${JVM_RESERVED_CODE_CACHE_SIZE:=\1}/g' ${JIRA_INSTALL_DIR}/bin/setenv.sh
 RUN touch /etc/container_id
+ADD dbconfig.xml $JIRA_HOME/
 RUN chown ${RUN_USER}:${RUN_GROUP}               /etc/container_id
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_HOME}
 #RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_CLUSTER_HOME}
