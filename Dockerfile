@@ -129,6 +129,7 @@ ADD shared-components-support.tar.gz                /opt/atlassian/support
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/support
 ADD config/*                     	            /opt/atlassian/etc/
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/jira/conf
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home.sh
 #ADD cluster.properties				    $JIRA_HOME/cluster.properties
 #RUN chmod 770					    $JIRA_HOME/cluster.properties
 #RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
