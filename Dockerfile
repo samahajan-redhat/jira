@@ -68,8 +68,8 @@ RUN mkdir -p ${JIRA_INSTALL_DIR}
 #ADD atlassian-jira-software-8.13.0.tar.gz ${JIRA_INSTALL_DIR}
 #ADD https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-8.13.0.tar.gz ${JIRA_INSTALL_DIR}
 ADD https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-8.13.0.zip  ${JIRA_INSTALL_DIR}
-RUN ls -l ${JIRA_INSTALL_DIR}/
-RUN ls -l /opt/atlassian/jira/
+#RUN ls -l ${JIRA_INSTALL_DIR}/
+#RUN ls -l /opt/atlassian/jira/
 RUN cd /opt/atlassian/jira/ ; unzip atlassian-jira-software-8.13.0.zip
 RUN ls -l ${JIRA_INSTALL_DIR}/
 RUN mv ${JIRA_INSTALL_DIR}/atlassian-jira-software-8.13.0-standalone/* ${JIRA_INSTALL_DIR}
