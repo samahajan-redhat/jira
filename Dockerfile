@@ -63,8 +63,14 @@ RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /b
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
 RUN mkdir -p /var/atlassian/application-data/jira
-ADD mkdir-home.sh /var/atlassian/application-data/
-RUN chmod 770 /var/atlassian/application-data/mkdir-home.sh
+ADD mkdir3.sh /var/atlassian/application-data/ 
+ADD mkdir-home4.sh /var/atlassian/application-data/
+ADD mkdir-home5.sh /var/atlassian/application-data/
+#ADD mkdir-home.sh /var/atlassian/application-data/
+RUN chmod 770 /var/atlassian/application-data/mkdir3.sh
+RUN chmod 770 /var/atlassian/application-data/mkdir-home4.sh
+RUN chmod 770 /var/atlassian/application-data/mkdir-home5.sh
+#RUN chmod 770 /var/atlassian/application-data/mkdir-home.sh
 #RUN mkdir -p ${JIRA_CLUSTER_HOME}
 # this is not a direct download from atlassian.com, it's from lookaside
 # it had to be recompressed with the leading directory in the structure removed
@@ -130,7 +136,10 @@ ADD shared-components-support.tar.gz                /opt/atlassian/support
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/support
 ADD config/*                     	            /opt/atlassian/etc/
 RUN chown -R ${RUN_USER}:${RUN_GROUP}               /opt/atlassian/jira/conf
-RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home.sh
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir3.sh
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home4.sh
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home5.sh
+#RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home.sh
 #ADD cluster.properties				    $JIRA_HOME/cluster.properties
 #RUN chmod 770					    $JIRA_HOME/cluster.properties
 #RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
