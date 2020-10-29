@@ -66,6 +66,8 @@ RUN mkdir -p /var/atlassian/application-data/jira
 ADD mkdir-home3.sh /var/atlassian/application-data/ 
 ADD mkdir-home4.sh /var/atlassian/application-data/
 ADD mkdir-home5.sh /var/atlassian/application-data/
+ADD make-home.py /
+RUN chown -R ${RUN_USER}:${RUN_GROUP} /make-home.py
 ADD jira-main-home.sh /var/atlassian/application-data/
 #ADD mkdir-home.sh /var/atlassian/application-data/
 RUN chmod 770 /var/atlassian/application-data/mkdir-home3.sh
