@@ -145,8 +145,7 @@ RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home
 #ADD cluster.properties				    $JIRA_HOME/cluster.properties
 #RUN chmod 770					    $JIRA_HOME/cluster.properties
 #RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
-#USER ${RUN_UID}:${RUN_GID}
-USER root
+USER ${RUN_UID}:${RUN_GID}
 
 # Set up metadata about the container with labels
 LABEL   com.redhat.component="jira-software-container" \
