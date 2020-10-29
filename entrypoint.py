@@ -23,8 +23,8 @@ def create_home_dir():
     if not os.path.exists(master_home_dir_path):
         os.makedirs(master_home_dir_path)
         with open(os.path.join(master_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
-            lines = ["jira.node.id=master-pod \n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster",
+            lines = ["jira.node.id=master-pod\n",
+                     "jira.shared.home=/var/atlassian/application-data/cluster\n",
                      "ehcache.listener.hostName="+ip_address]
             cluster_properties_file.writelines(lines)
         cluster_properties_file.close()
@@ -38,7 +38,7 @@ def create_home_dir():
                                cluster_properties_file_name))
         with open(os.path.join(pod_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
             lines = ["jira.node.id="+pod_name+"\n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster",
+                     "jira.shared.home=/var/atlassian/application-data/cluster\n",
                      "ehcache.listener.hostName="+ip_address]
             cluster_properties_file.writelines(lines)
         cluster_properties_file.close()
