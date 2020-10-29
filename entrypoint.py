@@ -2,6 +2,7 @@
 
 import os
 import shutil
+import socket
 
 from entrypoint_helpers import env, gen_cfg, gen_container_id, str2bool, start_app
 
@@ -17,11 +18,14 @@ cluster_properties_file_name = "cluster.properties"
 def create_home_dir():
     pod_name = os.environ.get('MY_POD_NAME')
     master_home_dir_path = os.path.join(home_dir_path, master_home_dir_name)
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
     if not os.path.exists(master_home_dir_path):
         os.makedirs(master_home_dir_path)
         with open(os.path.join(master_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
             lines = ["jira.node.id=master-pod \n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster"]
+                     "jira.shared.home=/var/atlassian/application-data/cluster",
+                     "ehcache.listener.hostName="+ip_address]
             cluster_properties_file.writelines(lines)
         cluster_properties_file.close()
         return master_home_dir_path
@@ -34,7 +38,8 @@ def create_home_dir():
                                cluster_properties_file_name))
         with open(os.path.join(pod_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
             lines = ["jira.node.id="+pod_name+"\n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster"]
+                     "jira.shared.home=/var/atlassian/application-data/cluster",
+                     "ehcache.listener.hostName="+ip_address]
             cluster_properties_file.writelines(lines)
         cluster_properties_file.close()
         return pod_home_dir_path
