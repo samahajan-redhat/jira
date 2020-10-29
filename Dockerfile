@@ -23,8 +23,7 @@ ENV RUN_USER=jira \
     JIRA_INSTALL_DIR=/opt/atlassian/jira \
     TINI_VERSION=v0.18.0 \
     CLUSTERED=true \
-    JIRA_HOME=/var/atlassian/application-data/jira/$JIRA_MAIN_HOME \
-#    JIRA_HOME=/var/atlassian/application-data/jira/$MY_POD_NAME \
+    JIRA_HOME=/var/atlassian/application-data/jira/$MY_POD_NAME \
     JIRA_CLUSTER_HOME=/var/atlassian/application-data/cluster
 
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0" \
@@ -146,7 +145,7 @@ RUN chown -R ${RUN_USER}:${RUN_GROUP} /var/atlassian/application-data/mkdir-home
 #ADD cluster.properties				    $JIRA_HOME/cluster.properties
 #RUN chmod 770					    $JIRA_HOME/cluster.properties
 #RUN chown ${RUN_USER}:${RUN_GROUP}		    $JIRA_HOME/cluster.properties
-USER ${RUN_UID}:${RUN_GID}
+#USER ${RUN_UID}:${RUN_GID}
 
 # Set up metadata about the container with labels
 LABEL   com.redhat.component="jira-software-container" \
