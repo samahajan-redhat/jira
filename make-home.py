@@ -7,7 +7,7 @@ cluster_properties_file_name = "cluster.properties"
 
 
 def create_home_dir():
-    pod_name = os.environ.get('MY-POD-NAME')
+    pod_name = os.environ.get('MY_POD_NAME')
     master_home_dir_path = os.path.join(home_dir_path, master_home_dir_name)
     if not os.path.exists(master_home_dir_path):
         os.makedirs(master_home_dir_path)
@@ -33,7 +33,3 @@ def create_home_dir():
         print('home-dir='+pod_home_dir_path)
         return pod_home_dir_path
 
-
-if __name__ == "__main__":
-    os.environ["MY-POD-NAME"] = "Test-pod-1"
-    create_home_dir()
