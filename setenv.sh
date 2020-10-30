@@ -11,7 +11,7 @@ MIN_NOFILES_LIMIT=16384
 #
 #  Occasionally Atlassian Support may recommend that you set some specific JVM arguments.  You can use this variable below to do that.
 #
-JVM_SUPPORT_RECOMMENDED_ARGS="-Datlassian.recovery.password=Redhat#123"
+JVM_SUPPORT_RECOMMENDED_ARGS=""
 
 #
 #  You can use variable below to modify garbage collector settings.

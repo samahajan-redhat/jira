@@ -93,6 +93,7 @@ RUN mkdir -p ${JIRA_INSTALL_DIR}/logs \
 #ADD atlassian-jira-software-8.13.0-standalone/conf/ ${JIRA_INSTALL_DIR}/conf
 #ADD atlassian-jira-software-8.13.0-standalone/bin/ ${JIRA_INSTALL_DIR}/bin
 ADD setenv.sh ${JIRA_INSTALL_DIR}/bin
+ADD server.xml ${JIRA_INSTALL_DIR}/conf/server.xml
 #ADD https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-core-8.12.0.tar.gz  ${JIRA_INSTALL_DIR}
 RUN chmod -R "u=rwX,g=rX,o=rX"                   ${JIRA_INSTALL_DIR}/
 RUN chown -R root.                               ${JIRA_INSTALL_DIR}/
