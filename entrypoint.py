@@ -11,42 +11,64 @@ RUN_USER = env['run_user']
 RUN_GROUP = env['run_group']
 JIRA_INSTALL_DIR = env['jira_install_dir']
 
-home_dir_path = '/var/atlassian/application-data/jira'
-master_home_dir_name = "jira-main-home"
+share_dir_path = '/var/atlassian/application-data/cluster'
+home_dir_base_path = '/var/atlassian/application-data/jira'
+jira_home_dir_names = ['jira-1', 'jira-2', 'jira-3', 'jira-4', 'jira-5', 'jira-6']
 cluster_properties_file_name = "cluster.properties"
+jira_home_lock_file_name = ".jira-home.lock"
 
-def create_home_dir():
-    pod_name = os.environ.get('MY_POD_NAME')
-    master_home_dir_path = os.path.join(home_dir_path, master_home_dir_name)
+
+def get_available_home_dir_name():
+    for home_dir_name in jira_home_dir_names:
+        if not os.path.exists(os.path.join(home_dir_base_path, home_dir_name, jira_home_lock_file_name)):
+            return home_dir_name
+    return None
+
+
+def get_other_pod_home_dir_name():
+    for home_dir_name in jira_home_dir_names:
+        if os.path.exists(os.path.join(home_dir_base_path, home_dir_name, jira_home_lock_file_name)):
+            return home_dir_name
+    return None
+
+
+def add_cluster_file(node_id, home_dir_path):
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
-    if not os.path.exists(master_home_dir_path):
-        os.makedirs(master_home_dir_path)
-        with open(os.path.join(master_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
-            lines = ["jira.node.id=master-pod\n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster\n",
-                     "ehcache.listener.hostName="+ip_address]
-            cluster_properties_file.writelines(lines)
-        cluster_properties_file.close()
-        return master_home_dir_path
-    else:
-        pod_home_dir_path = os.path.join(home_dir_path, pod_name)
-        if os.path.exists(pod_home_dir_path):
-            shutil.rmtree(pod_home_dir_path)
-        shutil.copytree(master_home_dir_path, pod_home_dir_path)
-        os.remove(os.path.join(pod_home_dir_path,
-                               cluster_properties_file_name))
-        with open(os.path.join(pod_home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
-            lines = ["jira.node.id="+pod_name+"\n",
-                     "jira.shared.home=/var/atlassian/application-data/cluster\n",
-                     "ehcache.listener.hostName="+ip_address]
-            cluster_properties_file.writelines(lines)
-        cluster_properties_file.close()
-        return pod_home_dir_path
+    with open(os.path.join(home_dir_path, cluster_properties_file_name), 'w+') as cluster_properties_file:
+        lines = ["jira.node.id="+node_id+"\n",
+                 "jira.shared.home="+share_dir_path+"\n",
+                 "ehcache.listener.hostName="+ip_address]
+        cluster_properties_file.writelines(lines)
+    cluster_properties_file.close()
 
-JIRA_HOME = create_home_dir()
-os.environ["jira_home"]=JIRA_HOME
-os.environ["JIRA_HOME"]=JIRA_HOME
+
+def select_home_dir():
+    home_dir_name = get_available_home_dir_name()
+    if not home_dir_name:
+        raise Exception("No home folder available for pod")
+
+    home_dir_path = os.path.join(home_dir_base_path, home_dir_name)
+    other_pod_home_dir_name = get_other_pod_home_dir_name()
+
+    if not os.path.exists(home_dir_path):
+        if other_pod_home_dir_name:
+            other_pod_home_path = os.path.join(
+                home_dir_base_path, other_pod_home_dir_name)
+            shutil.copytree(other_pod_home_path, home_dir_path)
+        else:
+            os.makedirs(home_dir_path)
+
+    add_cluster_file(os.environ.get('MY_POD_NAME'), home_dir_path)
+    if os.path.exists(os.path.join(home_dir_path, jira_home_lock_file_name)):
+        os.remove(os.path.join(home_dir_path, jira_home_lock_file_name))
+
+    return home_dir_path
+
+
+JIRA_HOME = select_home_dir()
+os.environ["jira_home"] = JIRA_HOME
+os.environ["JIRA_HOME"] = JIRA_HOME
 gen_container_id()
 if os.stat('/etc/container_id').st_size == 0:
     gen_cfg('container_id.j2', '/etc/container_id',
@@ -56,8 +78,8 @@ gen_cfg('seraph-config.xml.j2',
         f'{JIRA_INSTALL_DIR}/atlassian-jira/WEB-INF/classes/seraph-config.xml')
 gen_cfg('dbconfig.xml.j2', f'{JIRA_HOME}/dbconfig.xml',
         user=RUN_USER, group=RUN_GROUP, overwrite=False)
-#if str2bool(env.get('clustered')):
-    #gen_cfg('cluster.properties.j2', f'{JIRA_HOME}/cluster.properties', user=RUN_USER, group=RUN_GROUP, overwrite=False)
+# if str2bool(env.get('clustered')):
+#gen_cfg('cluster.properties.j2', f'{JIRA_HOME}/cluster.properties', user=RUN_USER, group=RUN_GROUP, overwrite=False)
 #os.system('sh /var/atlassian/application-data/jira-main-home.sh')
 #os.system('sh /var/atlassian/application-data/mkdir-home3.sh')
 #os.system('sh /var/atlassian/application-data/mkdir-home.sh')
