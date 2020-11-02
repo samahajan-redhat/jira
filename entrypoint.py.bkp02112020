@@ -42,12 +42,6 @@ def add_cluster_file(node_id, home_dir_path):
         cluster_properties_file.writelines(lines)
     cluster_properties_file.close()
 
-def add_jira_home_lock_file(home_dir_path):
-    if not os.path.exists(os.path.join(home_dir_path, jira_home_lock_file_name)):
-        with open(os.path.join(home_dir_path, jira_home_lock_file_name), 'w') as lock_file: 
-            pass
-        lock_file.close()
-
 
 def select_home_dir():
     home_dir_name = get_available_home_dir_name()
@@ -66,8 +60,9 @@ def select_home_dir():
             os.makedirs(home_dir_path)
 
     add_cluster_file(home_dir_name, home_dir_path)
-    add_jira_home_lock_file(home_dir_path)   
- 
+    if os.path.exists(os.path.join(home_dir_path, jira_home_lock_file_name)):
+        os.remove(os.path.join(home_dir_path, jira_home_lock_file_name))
+
     return home_dir_path
 
 
