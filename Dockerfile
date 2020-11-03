@@ -41,8 +41,7 @@ USER root
 RUN microdnf update
 # Useful things IBM recommended plus 2 from Atlassian (fontconfig and jinja2)
 #RUN microdnf install python3-pip
-#RUN microdnf install -y python36 rsync findutils procps vim lsof iputils openssl curl fontconfig tar unzip \
-RUN microdnf install -y rsync findutils procps vim lsof iputils openssl curl fontconfig tar unzip \
+RUN microdnf install -y python36 rsync findutils procps vim lsof iputils openssl curl fontconfig tar unzip \
                         python3-jinja2 shadow-utils
 # OpenJDK 8 stuff
 RUN microdnf install --setopt=tsflags=nodocs -y java-1.8.0-openjdk-devel
@@ -86,7 +85,7 @@ ADD https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-soft
 #RUN ls -l ${JIRA_INSTALL_DIR}/
 #RUN ls -l /opt/atlassian/jira/
 RUN cd /opt/atlassian/jira/ ; unzip atlassian-jira-software-8.13.0.zip
-RUN ls -l ${JIRA_INSTALL_DIR}/
+#RUN ls -l ${JIRA_INSTALL_DIR}/
 RUN mv ${JIRA_INSTALL_DIR}/atlassian-jira-software-8.13.0-standalone/* ${JIRA_INSTALL_DIR}
 RUN mkdir -p ${JIRA_INSTALL_DIR}/logs \
     mkdir -p ${JIRA_INSTALL_DIR}/temp \
