@@ -40,6 +40,7 @@ ENTRYPOINT ["/tini", "-s", "--"]
 USER root
 RUN microdnf update
 # Useful things IBM recommended plus 2 from Atlassian (fontconfig and jinja2)
+RUN microdnf install python3-pip
 RUN microdnf install -y python36 rsync findutils procps vim lsof iputils openssl curl fontconfig tar unzip \
                         python3-jinja2 shadow-utils
 # OpenJDK 8 stuff
