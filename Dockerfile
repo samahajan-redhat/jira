@@ -63,6 +63,7 @@ RUN useradd --uid ${RUN_UID} --gid ${RUN_GID} --home-dir ${JIRA_HOME} --shell /b
 RUN echo PATH=$PATH > /etc/environment
 RUN mkdir -p ${JIRA_INSTALL_DIR}
 RUN mkdir -p /var/atlassian/application-data/jira
+RUN mkdir -p /var/atlassian/application-data/cluster
 ADD mkdir-home3.sh /var/atlassian/application-data/ 
 ADD mkdir-home4.sh /var/atlassian/application-data/
 ADD mkdir-home5.sh /var/atlassian/application-data/
