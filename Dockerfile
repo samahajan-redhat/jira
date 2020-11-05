@@ -110,7 +110,7 @@ RUN touch /etc/container_id
 ADD dbconfig.xml $JIRA_HOME/
 RUN chown ${RUN_USER}:${RUN_GROUP}               /etc/container_id
 RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_HOME}
-#RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_CLUSTER_HOME}
+RUN chown -R ${RUN_USER}:${RUN_GROUP}            ${JIRA_CLUSTER_HOME}
 RUN chgrp -R 0 /etc/container_id
 RUN chmod -R g=u /etc/container_id
 RUN chmod -R 460 /etc/container_id
@@ -120,8 +120,8 @@ RUN chgrp -R 0 ${JIRA_HOME}
 RUN chmod -R g=u ${JIRA_HOME}
 ADD server.xml ${JIRA_INSTALL_DIR}/conf/server.xml
 RUN chown ${RUN_USER}:${RUN_GROUP}  ${JIRA_INSTALL_DIR}/conf/server.xml
-#RUN chgrp -R 0 ${JIRA_CLUSTER_HOME}
-#RUN chmod -R g=u ${JIRA_CLUSTER_HOME}
+RUN chgrp -R 0 ${JIRA_CLUSTER_HOME}
+RUN chmod -R g=u ${JIRA_CLUSTER_HOME}
 
 # Tweak the entrypoint script
 # not sure we need this after Docker 1.13, this happens automatically with --init
