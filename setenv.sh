@@ -24,8 +24,8 @@ JVM_GC_ARGS="-XX:+ExplicitGCInvokesConcurrent"
 #
 # The following 2 settings control the minimum and maximum given to the JIRA Java virtual machine.  In larger JIRA instances, the maximum amount will need to be increased.
 #
-JVM_MINIMUM_MEMORY="18432m"
-JVM_MAXIMUM_MEMORY="18432m"
+JVM_MINIMUM_MEMORY="25600m"
+JVM_MAXIMUM_MEMORY="25600m"
 
 #
 # The following setting configures the size of JVM code cache.  A high value of reserved size allows Jira to work with more installed apps.
