@@ -22,7 +22,7 @@
                acceptCount="10"
                secure="false"
                scheme="https"
-               proxyName=""
+               proxyName="jira-rh1-manual.apps.rh1-manual.w4p5.p1.openshiftapps.com"
                proxyPort=""
 
                relaxedPathChars="[]|"
