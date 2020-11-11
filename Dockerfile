@@ -119,7 +119,7 @@ RUN chgrp -R 0 ${JIRA_INSTALL_DIR}
 RUN chmod -R g=u ${JIRA_INSTALL_DIR}
 RUN chgrp -R 0 ${JIRA_HOME}
 RUN chmod -R g=u ${JIRA_HOME}
-ADD server.xml ${JIRA_INSTALL_DIR}/conf/server.xml
+ADD server.xml /opt/atlassian/jira/conf/server.xml
 RUN chown ${RUN_USER}:${RUN_GROUP}  ${JIRA_INSTALL_DIR}/conf/server.xml
 RUN chgrp -R 0 ${JIRA_CLUSTER_HOME}
 RUN chmod -R g=u ${JIRA_CLUSTER_HOME}
