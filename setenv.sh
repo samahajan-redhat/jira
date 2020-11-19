@@ -11,7 +11,7 @@ MIN_NOFILES_LIMIT=16384
 #
 #  Occasionally Atlassian Support may recommend that you set some specific JVM arguments.  You can use this variable below to do that.
 #
-#JVM_SUPPORT_RECOMMENDED_ARGS=""
+JVM_SUPPORT_RECOMMENDED_ARGS="-XX:+UseG1GC -Dfile.encoding=utf-8 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/atlassian/jira/"
 
 #
 #  You can use variable below to modify garbage collector settings.
