@@ -23,7 +23,7 @@
                secure="false"
                scheme="https"
                proxyName="jira-rh1-manual.apps.rh1-manual.w4p5.p1.openshiftapps.com"
-               proxyPort=""
+               proxyPort="443"
 
                relaxedPathChars="[]|"
                relaxedQueryChars="[]|{}^\`&quot;&lt;&gt;"
@@ -34,7 +34,7 @@
 
     <Engine name="Catalina"
             defaultHost="localhost">
-
+            
       <Host name="localhost"
             appBase="webapps"
             unpackWARs="true"
@@ -59,6 +59,23 @@
       <Valve className="org.apache.catalina.valves.AccessLogValve"
              pattern="%a %{jira.request.id}r %{jira.request.username}r %t &quot;%m %U%q %H&quot; %s %b %D &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; &quot;%{jira.request.assession.id}r&quot;"/>
     </Engine>
-
+<!-- JBoss CAS SSO:START - CAS client configuration -->
+                    <Environment description="URL of JIRA to be used as service identification on CAS server" name="cas/serverName" override="false" type="java.lang.String" value="https://jira-rh1-manual.apps.rh1-manual.w4p5.p1.openshiftapps.com"/>
+                   <Environment description="Base URL for CAS server" name="cas/casServerUrlPrefix" override="false" type="java.lang.String" value="https://sso.stage.jboss.org"/>
+                   <Environment description="Login URL for CAS server" name="cas/casServerLoginUrl" override="false" type="java.lang.String" value="https://sso.stage.jboss.org/login"/>
+                    <!-- JBoss CAS SSO:END -->    
+ 
+<!-- JBoss CAS SSO:START - REST API authentication configuration -->
+                    <Environment description="Token endpoint REST service URL" name="restauth/tokenServiceUrl" type="java.lang.String" value="https://sso.stage.jboss.org/rest/openid-connect/token" />
+                    <Environment description="UserInfo endpoint REST service URL base" name="restauth/userInfoServiceUrl" type="java.lang.String" value="https://sso.stage.jboss.org/rest/userinfo/" />
+                    <Environment description="REST service client id" name="restauth/clientId" type="java.lang.String" value="UBIK" />
+                    <Environment description="REST service client key" name="restauth/clientKey" type="java.lang.String" value="ubik_is_everywhere" />
+                    <Environment description="REST service connection timeout" name="restauth/connectionTimeout" type="java.lang.Integer" value="20" />
+                    <Environment description="REST service socket timeout" name="restauth/socketTimeout" type="java.lang.Integer" value="20" />
+                    <!-- JBoss CAS SSO:END - REST API authentication configuration -->        
+ 
+<!-- JBoss CAS SSO:START - links for user profile -->
+                    <Environment description="Link URL for SSO user profile page where user can change password" name="userprofile/ssoPasswordEditLink" type="java.lang.String" value="https://sso.stage.redhat.com/auth/realms/redhat-external/account" />
+                    <!--                     JBoss CAS SSO:END - links for user profile -->
   </Service>
 </Server>
