@@ -35,7 +35,10 @@
                  - If absolute (eg. SSO applications), Seraph calls Authenticator.logout() and redirects to the URL
                  -->
             <param-name>logout.url</param-name>
-            <param-value>/secure/Logout!default.jspa</param-value>
+            <!-- JBoss CAS SSO:START - Logout -->
+            <!--<param-value>/secure/Logout!default.jspa</param-value>-->
+              <param-value>/ssologout.jspa</param-value>
+            <!-- JBoss CAS SSO:END -->
             <!--<param-value>http://sso.mycompany.com/logout</param-value>-->
         </init-param>
         <!--
@@ -95,10 +98,15 @@
     <authenticator class="com.atlassian.jira.security.login.SSOSeraphAuthenticator"/>
     -->
     <!-- CROWD:END -->
-
-    <!-- CROWD:START - The authenticator below here will need to be commented out for Crowd SSO integration -->
+ 
+    <!-- JBoss CAS SSO:START - Java Client Jira Authenticator -->            
+    <authenticator class="org.jboss.jira.login.SSOCasAuthenticator"/> 
+    <!--  <authenticator class="com.atlassian.jira.security.login.JiraSeraphAuthenticator"/> -->
+    <!-- JBoss CAS SSO:END -->
+    
+    <!-- CROWD:START - The authenticator below here will need to be commented out for Crowd SSO integration 
     <authenticator class="com.atlassian.jira.security.login.JiraSeraphAuthenticator"/>
-    <!-- CROWD:END -->
+     CROWD:END -->
 
     <!-- NB: the URL to redirect to is now specified by login.url above -->
     <services>
